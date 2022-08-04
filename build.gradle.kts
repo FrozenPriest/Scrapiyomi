@@ -47,7 +47,9 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-dao:$exposed_version")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
     implementation("org.postgresql:postgresql:$postgres_jdbc_version")
-    implementation("com.zaxxer:HikariCP:4.0.3")
+    implementation("com.zaxxer:HikariCP:5.0.1")
+
+    implementation("org.quartz-scheduler:quartz:2.3.2")
 }
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
     kotlinOptions {

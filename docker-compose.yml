@@ -10,7 +10,8 @@ services:
       - POSTGRES_PASSWORD=pass
       - POSTGRES_DB=pokemon
     volumes:
-      - psql_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
   api:
     build: .
     container_name: api
@@ -18,7 +19,6 @@ services:
       - "8080:8080"
     depends_on:
       - psql
-
 
 volumes:
   psql_data:
