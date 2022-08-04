@@ -1,1 +1,1 @@
-rootProject.name = "ru.frozenpriest.scrapiyomi"
+rootProject.name = "Scrapiyomi"

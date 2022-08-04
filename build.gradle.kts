@@ -49,7 +49,11 @@ dependencies {
     implementation("org.postgresql:postgresql:$postgres_jdbc_version")
     implementation("com.zaxxer:HikariCP:4.0.3")
 }
-
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+}
 tasks {
     shadowJar {
         manifest {
