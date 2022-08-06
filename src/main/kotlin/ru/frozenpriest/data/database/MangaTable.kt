@@ -1,4 +1,4 @@
-package ru.frozenpriest.database
+package ru.frozenpriest.data.database
 
 import org.jetbrains.exposed.dao.LongEntity
 import org.jetbrains.exposed.dao.LongEntityClass
@@ -17,6 +17,7 @@ object MangaTable : LongIdTable("manga", "id") {
     val status: Column<Int> = integer("status")
     val coverUrl: Column<String> = varchar("coverUrl", 255)
     val coverLocal: Column<String> = varchar("coverLocal", 255)
+    val updateAt: Column<Long> = long("updated_at")
 }
 
 class MangaInTable(id: EntityID<Long>) : LongEntity(id) {
@@ -32,4 +33,5 @@ class MangaInTable(id: EntityID<Long>) : LongEntity(id) {
     var status by MangaTable.status
     var coverUrl by MangaTable.coverUrl
     var coverLocal by MangaTable.coverLocal
+    var updateAt by MangaTable.updateAt
 }

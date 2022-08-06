@@ -50,6 +50,12 @@ dependencies {
     implementation("com.zaxxer:HikariCP:5.0.1")
 
     implementation("org.quartz-scheduler:quartz:2.3.2")
+
+    // Network client
+    val okhttpVersion = "4.10.0"
+    implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
+    implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
+    implementation("com.squareup.okhttp3:okhttp-dnsoverhttps:$okhttpVersion")
 }
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
     kotlinOptions {

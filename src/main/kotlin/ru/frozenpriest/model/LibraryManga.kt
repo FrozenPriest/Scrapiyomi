@@ -1,6 +1,6 @@
 package ru.frozenpriest.model
 
-import ru.frozenpriest.database.MangaInTable
+import ru.frozenpriest.data.database.MangaInTable
 
 data class LibraryManga(
     val source: Long,
@@ -13,7 +13,8 @@ data class LibraryManga(
     val status: Int = MangaInfo.UNKNOWN,
     val coverUrl: String = "",
     val coverLocal: String = "",
-    val id: Long = 0
+    val id: Long = 0,
+    val lastUpdate: Long? = null
 )
 
 fun LibraryManga.toMangaInfo(): MangaInfo {

@@ -14,8 +14,8 @@ import org.koin.ktor.ext.inject
 import org.koin.ktor.plugin.Koin
 import org.koin.logger.SLF4JLogger
 import org.quartz.spi.JobFactory
-import ru.frozenpriest.database.MangaTable
-import ru.frozenpriest.database.ScrapTable
+import ru.frozenpriest.data.database.MangaTable
+import ru.frozenpriest.data.database.ScrapTable
 import ru.frozenpriest.schedule.JobSchedulerManager
 import ru.frozenpriest.schedule.startJob
 import ru.frozenpriest.subscribe.subscribeRoute

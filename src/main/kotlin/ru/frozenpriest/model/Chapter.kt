@@ -12,6 +12,8 @@ open class SourceChapter : Serializable {
     open var date_upload: Long = 0
     open var chapter_number: Float = -1f
     open var scanlator: String? = null
+    val isRecognizedNumber: Boolean
+        get() = chapter_number >= 0f
 
     fun copyFrom(other: SourceChapter) {
         name = other.name
@@ -65,10 +67,6 @@ class Chapter : SourceChapter() {
     override lateinit var url: String
     override lateinit var name: String
     override var scanlator: String? = null
-    var read: Boolean = false
-    var bookmark: Boolean = false
-    var last_page_read: Int = 0
-    var pages_left: Int = 0
     var date_fetch: Long = 0
     override var date_upload: Long = 0
     override var chapter_number: Float = 0f
@@ -103,10 +101,6 @@ class Chapter : SourceChapter() {
     fun copyFrom(other: Chapter) {
         id = other.id
         manga_id = other.manga_id
-        read = other.read
-        bookmark = other.bookmark
-        last_page_read = other.last_page_read
-        pages_left = other.pages_left
         date_fetch = other.date_fetch
         source_order = other.source_order
         copyFrom(other as SourceChapter)

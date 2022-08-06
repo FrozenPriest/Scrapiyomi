@@ -4,7 +4,7 @@ import kotlinx.coroutines.*
 import ru.frozenpriest.model.*
 import ru.frozenpriest.scrapper.source.ChapterSourceSync
 import ru.frozenpriest.scrapper.source.SourceManager
-import ru.frozenpriest.service.ScrapRepository
+import ru.frozenpriest.data.ScrapRepository
 
 interface MangaUpdater {
     suspend fun updateAllManga()
@@ -74,14 +74,15 @@ interface MangaUpdater {
                 if (fetchedChapters.isNotEmpty()) {
                     val newChapters =
                         chapterSyncer.syncChaptersWithSource(scrapRepository, fetchedChapters, manga, source)
-                    if (newChapters.first.isNotEmpty()) {
-                        downloadChapters(manga, newChapters.first.sortedBy { it.chapter_number })
+                    if (newChapters.isNotEmpty()) {
+                        downloadChapters(manga, newChapters.sortedBy { it.chapter_number })
                         newUpdates[manga] =
-                            newChapters.first.sortedBy { it.chapter_number }.toTypedArray()
+                            newChapters.sortedBy { it.chapter_number }.toTypedArray()
+
+                        listener?.onUpdateManga(
+                            manga,
+                        )
                     }
-                    if (newChapters.first.size + newChapters.second.size > 0) listener?.onUpdateManga(
-                        manga,
-                    )
                 }
                 return true
             } catch (e: Exception) {

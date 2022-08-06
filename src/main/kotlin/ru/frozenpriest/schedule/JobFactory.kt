@@ -4,7 +4,7 @@ import org.quartz.Job
 import org.quartz.Scheduler
 import org.quartz.spi.JobFactory
 import org.quartz.spi.TriggerFiredBundle
-import ru.frozenpriest.service.ScrapRepository
+import ru.frozenpriest.data.ScrapRepository
 import kotlin.reflect.jvm.jvmName
 
 class MyJobFactory(private val mangaRepository: ScrapRepository): JobFactory {

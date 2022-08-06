@@ -1,8 +1,10 @@
-package ru.frozenpriest.service
+package ru.frozenpriest.data
 
 import org.jetbrains.exposed.sql.transactions.transaction
-import ru.frozenpriest.database.MangaInTable
-import ru.frozenpriest.database.ScrapItem
+import ru.frozenpriest.data.database.ChapterTable
+import ru.frozenpriest.data.database.MangaInTable
+import ru.frozenpriest.data.database.ScrapItem
+import ru.frozenpriest.data.database.util.batchUpsert
 import ru.frozenpriest.model.Chapter
 import ru.frozenpriest.model.LibraryManga
 import ru.frozenpriest.model.toLibrary
@@ -14,6 +16,8 @@ interface ScrapRepository {
     fun getManga(): List<LibraryManga>
     fun insertManga(manga: LibraryManga)
     fun getChapters(manga: LibraryManga): List<Chapter>
+    fun updateLastUpdated(manga: LibraryManga, date: Long)
+    fun insertChapters(chapters: List<Chapter>): Map<String, Long>
 }
 
 class ScrapRepositoryImpl() : ScrapRepository {
@@ -56,6 +60,34 @@ class ScrapRepositoryImpl() : ScrapRepository {
 
     override fun getChapters(manga: LibraryManga): List<Chapter> {
         TODO("Not yet implemented")
+    }
+
+    override fun updateLastUpdated(manga: LibraryManga, date: Long) {
+        return transaction {
+            MangaInTable.findById(manga.id)?.apply {
+                this.updateAt = date
+            }
+        }
+    }
+
+    override fun insertChapters(chapters: List<Chapter>): Map<String, Long> {
+        return transaction {
+            ChapterTable.batchUpsert(data = chapters) { table, item ->
+                table[manga_id] = item.manga_id
+                table[url] = item.url
+                table[name] = item.name
+                table[scanlator] = item.scanlator
+                table[date_fetch] = item.date_fetch
+                table[date_upload] = item.date_upload
+                table[chapter_number] = item.chapter_number
+                table[source_order] = item.source_order
+            }.resultedValues?.map {
+                it[ChapterTable.url] to it[ChapterTable.id]
+            }?.associateBy {
+                it.first
+            }?.mapValues { it.value.second.value }
+                ?: emptyMap()
+        }
     }
 
     private fun MangaInTable.updateManga(manga: LibraryManga) {

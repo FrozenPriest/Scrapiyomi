@@ -1,9 +1,6 @@
 package ru.frozenpriest.scrapper.source
 
-import ru.frozenpriest.model.ChapterInfo
-import ru.frozenpriest.model.MangaInfo
-import ru.frozenpriest.model.Page
-import ru.frozenpriest.model.SourceChapter
+import ru.frozenpriest.model.*
 
 
 /**
@@ -54,5 +51,5 @@ interface Source {
         return Regex("")
     }
 
-    fun prepareNewChapter(chapter: SourceChapter, manga: SourceManga) {}
+    fun prepareNewChapter(chapter: SourceChapter, manga: LibraryManga) {}
 }

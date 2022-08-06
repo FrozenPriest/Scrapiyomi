@@ -1,4 +1,4 @@
-package ru.frozenpriest.database
+package ru.frozenpriest.data.database
 
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass

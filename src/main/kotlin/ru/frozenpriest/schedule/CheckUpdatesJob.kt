@@ -3,7 +3,7 @@ package ru.frozenpriest.schedule
 import io.ktor.server.application.*
 import org.koin.ktor.ext.inject
 import org.quartz.*
-import ru.frozenpriest.service.ScrapRepository
+import ru.frozenpriest.data.ScrapRepository
 
 class CheckUpdatesJob(
     private val mangaRepository: ScrapRepository
